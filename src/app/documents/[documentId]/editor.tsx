@@ -13,10 +13,15 @@ import FontFamily from "@tiptap/extension-font-family";
 import ImageResize from "tiptap-extension-resize-image";
 import { Color } from "@tiptap/extension-color";
 import Highlight from "@tiptap/extension-highlight";
+import Link from "@tiptap/extension-link";
+import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import Text from "@tiptap/extension-text";
 import TextStyle from "@tiptap/extension-text-style";
+import { FontSizeExtension } from "@/extensions/FontSizeExtension ";
+import { LineHeightExtension } from "@/extensions/LineHeightExtension";
 import { useEditorStore } from "@/store/useEditorStore";
+import { Ruler } from "./ruler";
 
 export const Editor = () => {
   const { setEditor } = useEditorStore();
@@ -67,6 +72,17 @@ export const Editor = () => {
       TextStyle,
       Color,
       Highlight.configure({ multicolor: true }),
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: "https",
+      }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+      FontSizeExtension,
+      LineHeightExtension.configure({
+        types: ["heading", "paragraph"],
+        defaultLineHeight: "normal",
+      }),
     ],
     editorProps: {
       attributes: {
@@ -84,6 +100,7 @@ export const Editor = () => {
 
   return (
     <div className="size-full overflow-x-auto bg-[#F9FBFD] px-4 print:p-0 print:bg-white print:overflow-visible">
+      <Ruler />
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
         <EditorContent editor={editor} />
       </div>
