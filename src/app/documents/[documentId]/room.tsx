@@ -32,6 +32,7 @@ export function Room({ children }: { children: ReactNode }) {
     () => async () => {
       try {
         const list = await getUsers();
+
         setUsers(list);
       } catch {
         toast.error("加载用户错误");

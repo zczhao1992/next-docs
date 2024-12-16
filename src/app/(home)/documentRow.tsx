@@ -22,7 +22,7 @@ export const DocumentRow = ({ document }: DocumentRowProps) => {
       className="cursor-pointer"
       onClick={() => router.push(`/documents/${document._id}`)}
     >
-      <TableCell className="w-[50px">
+      <TableCell className="w-[50px]">
         <SiGoogledocs className="size-6 fill-blue-500" />
       </TableCell>
       <TableCell className="font-medium md:w-[45%]">{document.title}</TableCell>
