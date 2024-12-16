@@ -44,6 +44,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
   });
 
   const editor = useEditor({
+    autofocus: true,
     immediatelyRender: false,
     onCreate({ editor }) {
       setEditor(editor);
