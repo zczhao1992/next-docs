@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { DocumentInput } from "./documentInput";
 import {
   Menubar,
@@ -35,8 +36,18 @@ import {
 } from "lucide-react";
 import { BsFilePdf } from "react-icons/bs";
 import { useEditorStore } from "@/store/useEditorStore";
+import { api } from "../../../../convex/_generated/api";
 
-export const Navbar = () => {
+import { Doc } from "../../../../convex/_generated/dataModel";
+
+import { Avatars } from "./avatars";
+import { Inbox } from "./inbox";
+
+interface NavbarProps {
+  data: Doc<"documents">;
+}
+
+export const Navbar = ({ data }: NavbarProps) => {
   const { editor } = useEditorStore();
 
   const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
@@ -257,6 +268,17 @@ export const Navbar = () => {
             </Menubar>
           </div>
         </div>
+      </div>
+      <div className="flex gap-3 items-center pl-6">
+        <Avatars />
+        <Inbox />
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl="/"
+          afterSelectPersonalUrl="/"
+        />
+        <UserButton />
       </div>
     </nav>
   );

@@ -14,15 +14,15 @@ export const Navbar = () => {
       </div>
       <SearchInput />
 
-      <UserButton />
-      {/* <div className="flex gap-3 items-center pl-6">
+      <div className="flex gap-3 items-center pl-6">
         <OrganizationSwitcher
           afterCreateOrganizationUrl="/"
           afterLeaveOrganizationUrl="/"
           afterSelectOrganizationUrl="/"
           afterSelectPersonalUrl="/"
-        /> 
-      </div> */}
+        />
+        <UserButton />
+      </div>
     </nav>
   );
 };

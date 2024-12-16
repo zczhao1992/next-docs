@@ -21,10 +21,23 @@ import TextStyle from "@tiptap/extension-text-style";
 import { FontSizeExtension } from "@/extensions/FontSizeExtension ";
 import { LineHeightExtension } from "@/extensions/LineHeightExtension";
 import { useEditorStore } from "@/store/useEditorStore";
+import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
 import { Ruler } from "./ruler";
+import { Threads } from "./threads";
 
-export const Editor = () => {
+import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
+
+interface EditorProps {
+  initialContent?: string;
+}
+
+export const Editor = ({ initialContent }: EditorProps) => {
   const { setEditor } = useEditorStore();
+
+  const liveblocks = useLiveblocksExtension({
+    initialContent,
+    offlineSupport_experimental: true,
+  });
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -53,7 +66,10 @@ export const Editor = () => {
       setEditor(editor);
     },
     extensions: [
-      StarterKit,
+      liveblocks,
+      StarterKit.configure({
+        history: false,
+      }),
       TaskList,
       TaskItem.configure({
         nested: true,
@@ -91,11 +107,7 @@ export const Editor = () => {
           "focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text",
       },
     },
-    content: `
-    <p>This is a basic example of implementing images. Drag to re-order.</p>
-    <img src="https://placehold.co/800x400" />
-    <img src="https://placehold.co/800x400/6A00F5/white" />
-  `,
+    content: "",
   });
 
   return (
@@ -103,6 +115,7 @@ export const Editor = () => {
       <Ruler />
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
         <EditorContent editor={editor} />
+        <Threads editor={editor} />
       </div>
     </div>
   );
