@@ -7,6 +7,7 @@ Next-Docs，基于 Next.js、shadcn/ui、TailWind css、Convex、liveblocks、Ti
 ### 一、在线预览地址
 
 - vercel(需要翻墙)：https://next-docs-zc.vercel.app/
+- netlify(无需翻墙)：https://next-docs-zc.netlify.app/
 
 ### 二、Git 仓库地址 (欢迎 Star⭐)
 
