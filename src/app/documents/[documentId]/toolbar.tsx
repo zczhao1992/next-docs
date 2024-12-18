@@ -28,6 +28,7 @@ import {
   UnderlineIcon,
   Undo2Icon,
   UploadIcon,
+  CodeXmlIcon,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -615,6 +616,11 @@ export const Toolbar = () => {
         label: "Remove Formatting",
         icon: RemoveFormattingIcon,
         onClick: () => editor?.chain().focus().unsetAllMarks().run(),
+      },
+      {
+        label: "Code",
+        icon: CodeXmlIcon,
+        onClick: () => editor?.chain().focus().toggleCodeBlock().run(),
       },
     ],
   ];

@@ -22,6 +22,13 @@ import { FontSizeExtension } from "@/extensions/FontSizeExtension ";
 import { LineHeightExtension } from "@/extensions/LineHeightExtension";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import { all, createLowlight } from "lowlight";
+import css from "highlight.js/lib/languages/css";
+import js from "highlight.js/lib/languages/javascript";
+import ts from "highlight.js/lib/languages/typescript";
+import html from "highlight.js/lib/languages/xml";
+
 import { Ruler } from "./ruler";
 import { Threads } from "./threads";
 import { useStorage } from "@liveblocks/react";
@@ -31,6 +38,13 @@ import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
 interface EditorProps {
   initialContent?: string;
 }
+
+const lowlight = createLowlight(all);
+
+lowlight.register("html", html);
+lowlight.register("css", css);
+lowlight.register("js", js);
+lowlight.register("ts", ts);
 
 export const Editor = ({ initialContent }: EditorProps) => {
   const leftMargin = useStorage((root) => root.leftMargin);
@@ -103,6 +117,9 @@ export const Editor = ({ initialContent }: EditorProps) => {
       LineHeightExtension.configure({
         types: ["heading", "paragraph"],
         defaultLineHeight: "normal",
+      }),
+      CodeBlockLowlight.configure({
+        lowlight,
       }),
     ],
     editorProps: {
